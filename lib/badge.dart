@@ -37,8 +37,10 @@ class Badge extends StatefulWidget {
 
   //if the badge is inside we have to set [_before]
   bool _inside = false;
+
   //if the badge is before or after the child
   bool _before;
+
   //we can set the space between the badge and the child
   double spacing;
 
@@ -184,10 +186,12 @@ class _BadgeState extends State<Badge> {
   Padding valueWidget() {
     return new Padding(
       padding: const EdgeInsets.all(2.5),
-      child: new Text(
-        widget.value,
-        style: widget.textStyle,
-      ),
+      child: (widget.value == null || widget.value == "")
+          ? Container()
+          : new Text(
+              widget.value,
+              style: widget.textStyle,
+            ),
     );
   }
 
