@@ -169,15 +169,17 @@ class _BadgeState extends State<Badge> {
       overflow: Overflow.visible,
       children: <Widget>[
         widget.child,
-        new Positioned(
-            top: widget.positionTop,
-            right: widget.positionRight,
-            left: widget.positionLeft,
-            bottom: widget.positionBottom,
-            child: new Container(
-              decoration: badgeDecoration(),
-              child: valueWidget(),
-            ))
+        (widget.value == null || widget.value == "")
+            ? Container()
+            : new Positioned(
+                top: widget.positionTop,
+                right: widget.positionRight,
+                left: widget.positionLeft,
+                bottom: widget.positionBottom,
+                child: new Container(
+                  decoration: badgeDecoration(),
+                  child: valueWidget(),
+                ))
       ],
     );
   }
@@ -186,12 +188,10 @@ class _BadgeState extends State<Badge> {
   Padding valueWidget() {
     return new Padding(
       padding: const EdgeInsets.all(2.5),
-      child: (widget.value == null || widget.value == "")
-          ? Container()
-          : new Text(
-              widget.value,
-              style: widget.textStyle,
-            ),
+      child: new Text(
+        widget.value,
+        style: widget.textStyle,
+      ),
     );
   }
 
