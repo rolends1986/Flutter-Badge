@@ -43,6 +43,7 @@ class Badge extends StatefulWidget {
 
   //we can set the space between the badge and the child
   double spacing;
+  double minWidth;
 
   Badge({
     Key key,
@@ -57,6 +58,7 @@ class Badge extends StatefulWidget {
     this.positionRight = -10.0,
     this.positionLeft,
     this.positionBottom,
+    this.minWidth = 15,
   }) : super(key: key);
 
   //create a badge in the left corner of the child in a Stack
@@ -72,7 +74,7 @@ class Badge extends StatefulWidget {
     this.positionTop = -20.0,
     this.positionRight = -10.0,
     this.positionLeft,
-    this.positionBottom,
+    this.positionBottom, this.minWidth = 15,
   }) : super(key: key);
 
   //create a badge in the right corner of the child in a Stack
@@ -88,7 +90,7 @@ class Badge extends StatefulWidget {
     this.positionTop = -20.0,
     this.positionRight,
     this.positionLeft = -10.0,
-    this.positionBottom,
+    this.positionBottom, this.minWidth = 15,
   }) : super(key: key);
 
   //create a badge after the child in a row
@@ -105,7 +107,7 @@ class Badge extends StatefulWidget {
     this.positionRight,
     this.positionLeft = -10.0,
     this.positionBottom,
-    this.spacing = 0.0,
+    this.spacing = 0.0, this.minWidth = 15,
   }) : super(key: key) {
     this._inside = true;
     this._before = false;
@@ -125,7 +127,7 @@ class Badge extends StatefulWidget {
     this.positionRight,
     this.positionLeft = -10.0,
     this.positionBottom,
-    this.spacing = 0.0,
+    this.spacing = 0.0, this.minWidth = 15,
   }) : super(key: key) {
     this._inside = true;
     this._before = true;
@@ -172,14 +174,14 @@ class _BadgeState extends State<Badge> {
         (widget.value == null || widget.value == "")
             ? Container()
             : new Positioned(
-                top: widget.positionTop,
-                right: widget.positionRight,
-                left: widget.positionLeft,
-                bottom: widget.positionBottom,
-                child: new Container(
-                  decoration: badgeDecoration(),
-                  child: valueWidget(),
-                ))
+            top: widget.positionTop,
+            right: widget.positionRight,
+            left: widget.positionLeft,
+            bottom: widget.positionBottom,
+            child: new Container(
+              decoration: badgeDecoration(),
+              child: valueWidget(),
+            ))
       ],
     );
   }
@@ -188,10 +190,13 @@ class _BadgeState extends State<Badge> {
   Padding valueWidget() {
     return new Padding(
       padding: const EdgeInsets.all(2.5),
-      child: new Text(
-        widget.value,
-        style: widget.textStyle,
-      ),
+      child: Container(
+        alignment: Alignment.center,
+        constraints: BoxConstraints(minWidth: widget.minWidth),
+        child: new Text(
+          widget.value,
+          style: widget.textStyle,
+        ),),
     );
   }
 
