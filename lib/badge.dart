@@ -169,6 +169,7 @@ class _BadgeState extends State<Badge> {
   Stack createBadgeCorner() {
     return new Stack(
       overflow: Overflow.visible,
+      alignment: Alignment.center,
       children: <Widget>[
         widget.child,
         (widget.value == null || widget.value == "")
